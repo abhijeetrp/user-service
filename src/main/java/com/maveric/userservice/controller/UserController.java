@@ -45,4 +45,26 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    //  build update user Rest API
+    //*****************************************************************************************************
+
+    @PutMapping("{id}")
+    public ResponseEntity<User> updateUser(@PathVariable long id ,@RequestBody User userDetails)
+    {
+        User updateUser = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not exit with id" +id));
+        updateUser.setFirstName(userDetails.getFirstName());
+        updateUser.setLastName(userDetails.getLastName());
+        updateUser.setMiddleName(userDetails.getMiddleName());
+        updateUser.setPhoneNumber(userDetails.getPhoneNumber());
+        updateUser.setEmail(userDetails.getEmail());
+        updateUser.setAddress(userDetails.getAddress());
+        updateUser.setDateOfBirth(userDetails.getDateOfBirth());
+        updateUser.setGender(userDetails.getGender());
+        updateUser.setId(userDetails.getId());
+        userRepository.save(updateUser);
+        return ResponseEntity.ok(updateUser);
+    }
+
+
 }
