@@ -46,7 +46,7 @@ public class UserController {
     }
 
     //  build update user Rest API
-    //*****************************************************************************************************
+    //******************************************************************************************************
 
     @PutMapping("{id}")
     public ResponseEntity<User> updateUser(@PathVariable long id ,@RequestBody User userDetails)
