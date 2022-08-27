@@ -66,5 +66,29 @@ public class UserController {
         return ResponseEntity.ok(updateUser);
     }
 
+    // build delete user REST API
+    //*****************************************************************************************************
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<HttpStatus>  deleteUser(@PathVariable long id){
+
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not exist with id : " +id));
+        userRepository.delete(user);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+    }
+
+
+//    @GetMapping("/getUserByEmail/{email}")
+//    public ResponseEntity<List<User>> getUserDetailsByEmail(@RequestParam("email") String email) {
+//        return new ResponseEntity<>((List<User>) userRepository.findByEmail(email), HttpStatus.OK);
+//    }
+//
+//    public ResponseEntity<User> getUserDetailsByEmail(@PathVariable("email") String email) {
+//
+//        User user = userRepository.findByEmailId("email");
+//              // .orElseThrow(() -> new ResourceNotFoundException("User not exist with id : " + email));
+//        return ResponseEntity.ok(user);
 
 }
