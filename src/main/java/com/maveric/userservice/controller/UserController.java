@@ -36,5 +36,13 @@ public class UserController {
         return userRepository.save(user);
     }
 
+    // build get user by id REST API
+    //*****************************************************************************************************
+
+    @GetMapping("{id}")
+    public ResponseEntity<User> getUserDetails(@PathVariable long id){
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("user not exit with id" + id));
+        return ResponseEntity.ok(user);
+    }
 
 }
