@@ -19,6 +19,15 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    // build return user list Rest API
+    //*****************************************************************************************************
+
+    @GetMapping
+    public List<User> getUsers(){
+        return userRepository.findAll();
+    }
+
+
     // build create-user Rest API
     //*****************************************************************************************************
 
