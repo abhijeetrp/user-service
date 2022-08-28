@@ -1,7 +1,9 @@
-//package com.maveric.userservice.service;
-//import org.springframework.security.core.userdetails;
-//
-//
-//public interface UserService extends UserDetailsService{
-//
-//}
+
+package com.maveric.userservice.service;
+import com.maveric.userservice.model.User;
+
+import java.util.List;
+
+public interface UserService{
+    List<User> findByEmail(String email);
+}

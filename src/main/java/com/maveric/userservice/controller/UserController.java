@@ -3,6 +3,7 @@ package com.maveric.userservice.controller;
 import com.maveric.userservice.exception.ResourceNotFoundException;
 import com.maveric.userservice.model.User;
 import com.maveric.userservice.repository.UserRepository;
+import com.maveric.userservice.service.UserService;
 import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,8 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserService userService;
 
     // build return user list Rest API
     //*****************************************************************************************************
@@ -79,16 +82,10 @@ public class UserController {
 
     }
 
-
-//    @GetMapping("/getUserByEmail/{email}")
-//    public ResponseEntity<List<User>> getUserDetailsByEmail(@RequestParam("email") String email) {
-//        return new ResponseEntity<>((List<User>) userRepository.findByEmail(email), HttpStatus.OK);
-//    }
-//
-//    public ResponseEntity<User> getUserDetailsByEmail(@PathVariable("email") String email) {
-//
-//        User user = userRepository.findByEmailId("email");
-//              // .orElseThrow(() -> new ResourceNotFoundException("User not exist with id : " + email));
-//        return ResponseEntity.ok(user);
-
+    // build get user by email REST API
+    //*****************************************************************************************************
+    @GetMapping("/getUserByEmail/{email}")
+    public List<User> getUserByEmail(@PathVariable String email){
+        return userService.findByEmail(email);
+    }
 }
