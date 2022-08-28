@@ -82,7 +82,7 @@ public class UserController {
 
     }
 
-    // build get user by email REST API
+    // build get user by emailID REST API
     //*****************************************************************************************************
     @GetMapping("/getUserByEmail/{email}")
     public List<User> getUserByEmail(@PathVariable String email){
