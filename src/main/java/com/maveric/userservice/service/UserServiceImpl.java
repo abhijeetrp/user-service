@@ -78,6 +78,7 @@ public class UserServiceImpl implements UserService{
         userDto.setDateOfBirth(user.getDateOfBirth());
         userDto.setGender(user.getGender());
         userDto.setId(user.getId());
+        userDto.setPassword(user.getPassword());
       return userDto;
     }
     private User convertDtoToEntity(UserDto userDto){
@@ -91,6 +92,7 @@ public class UserServiceImpl implements UserService{
         user.setDateOfBirth(userDto.getDateOfBirth());
         user.setGender(userDto.getGender());
         user.setId(userDto.getId());
+        user.setPassword(userDto.getPassword());
         return user;
     }
 }
