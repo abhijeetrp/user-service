@@ -1,32 +1,21 @@
-package com.maveric.userservice.model;
+package com.maveric.userservice.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.maveric.userservice.constants.Gender;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-
-@Entity
-@Table(name = "User")
-public class User {
+public class UserDto {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+
     private Long id;
-//    @NotEmpty(message = "required")
-//    @Size(min=2, max=30)
+    @NotNull
     private String firstName;
     private String lastName;
     private String middleName;
@@ -34,7 +23,7 @@ public class User {
     private String email;
     private String address;
     private String dateOfBirth;
-    private Gender gender;
+    private String gender;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 }

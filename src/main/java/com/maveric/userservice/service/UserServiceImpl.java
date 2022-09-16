@@ -7,7 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +19,10 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepository;
+
+//    @Autowired
+//    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     public List<UserDto>  getUsers(Integer page,Integer pageSize)
     {
         Pageable pageable = PageRequest.of(page, pageSize);
@@ -28,12 +36,21 @@ public class UserServiceImpl implements UserService{
     public UserDto getUserDetails(String id) {
         return userRepository.findById(Long.valueOf(id)).map(this::convertEntityToDto).get();
     }
+
     @Override
     public UserDto createUser(UserDto userDto) {
 
+//        User emailEntry = null;
+//        emailEntry = userRepository.findByEmail(userDto.getEmail());
+//
+//        System.out.println(emailEntry.getEmail());
+//        if(emailEntry != null){
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already exists!");
+//        }
+
+
         User user= convertDtoToEntity(userDto);
         User newuser= userRepository.save(user);
-
         UserDto userresponce= convertEntityToDto(newuser);
         return userresponce;
     }
@@ -79,7 +96,7 @@ public class UserServiceImpl implements UserService{
         userDto.setGender(user.getGender());
         userDto.setId(user.getId());
         userDto.setPassword(user.getPassword());
-      return userDto;
+        return userDto;
     }
     private User convertDtoToEntity(UserDto userDto){
         User user =new User();
@@ -93,6 +110,7 @@ public class UserServiceImpl implements UserService{
         user.setGender(userDto.getGender());
         user.setId(userDto.getId());
         user.setPassword(userDto.getPassword());
+        user.setPassword(new BCryptPasswordEncoder().encode(userDto.getPassword()));
         return user;
     }
 }
