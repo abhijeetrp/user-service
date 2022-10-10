@@ -3,25 +3,23 @@ import com.maveric.userservice.dto.UserDto;
 import com.maveric.userservice.exception.ResourceNotFoundException;
 import com.maveric.userservice.model.User;
 import com.maveric.userservice.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepository;
 
-//    @Autowired
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public List<UserDto>  getUsers(Integer page,Integer pageSize)
     {
@@ -32,23 +30,28 @@ public class UserServiceImpl implements UserService{
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList());
     }
+
+    public List<UserDto>  getUsers1()
+    {
+        List<User> Users = userRepository.findAll();
+        return   Users
+                .stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+
+
+
+
+
     @Override
     public UserDto getUserDetails(String id) {
-        return userRepository.findById(Long.valueOf(id)).map(this::convertEntityToDto).get();
+       return userRepository.findById(Long.valueOf(id)).map(this::convertEntityToDto).get();
     }
 
     @Override
     public UserDto createUser(UserDto userDto) {
-
-//        User emailEntry = null;
-//        emailEntry = userRepository.findByEmail(userDto.getEmail());
-//
-//        System.out.println(emailEntry.getEmail());
-//        if(emailEntry != null){
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already exists!");
-//        }
-
-
         User user= convertDtoToEntity(userDto);
         User newuser= userRepository.save(user);
         UserDto userresponce= convertEntityToDto(newuser);
@@ -84,7 +87,7 @@ public class UserServiceImpl implements UserService{
 
 
 
-    private UserDto convertEntityToDto(User user){
+    public UserDto convertEntityToDto(User user){
         UserDto  userDto =new UserDto();
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
@@ -98,7 +101,7 @@ public class UserServiceImpl implements UserService{
         userDto.setPassword(user.getPassword());
         return userDto;
     }
-    private User convertDtoToEntity(UserDto userDto){
+    public User convertDtoToEntity(UserDto userDto){
         User user =new User();
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());

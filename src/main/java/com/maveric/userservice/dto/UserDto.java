@@ -2,13 +2,16 @@ package com.maveric.userservice.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maveric.userservice.constants.Gender;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.management.ConstructorParameters;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.*;
 
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -49,4 +52,5 @@ public class UserDto {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotEmpty(message = "Password is mandatory")
     private String password;
+
 }
