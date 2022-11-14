@@ -1,5 +1,6 @@
 package com.maveric.userservice.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.maveric.userservice.constants.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +11,7 @@ import javax.management.ConstructorParameters;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.*;
+import java.time.LocalDate;
 
 @Builder
 @Data
@@ -43,6 +45,8 @@ public class UserDto {
     @NotEmpty(message = "Address is mandatory")
     private String address;
 
+    //@JsonDeserialize(using = DateDeSerializer.class)
+    //@Past(message = "Date Should be past")
     @NotEmpty(message = "Date of Birth is mandatory")
     private String dateOfBirth;
 

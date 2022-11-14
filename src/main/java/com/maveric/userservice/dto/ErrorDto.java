@@ -12,7 +12,7 @@ import java.util.Map;
 public class ErrorDto {
     String code;
     String message;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    Map<String, String> errors;
+//    @JsonInclude(JsonInclude.Include.NON_NULL)
+//    Map<String, String> errors;
 
 }
