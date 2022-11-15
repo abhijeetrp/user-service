@@ -2,6 +2,7 @@ package com.maveric.userservice.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.maveric.userservice.constants.Gender;
+import com.maveric.userservice.utility.DateDeSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -44,11 +45,10 @@ public class UserDto {
 
     @NotEmpty(message = "Address is mandatory")
     private String address;
-
-    //@JsonDeserialize(using = DateDeSerializer.class)
-    //@Past(message = "Date Should be past")
-    @NotEmpty(message = "Date of Birth is mandatory")
-    private String dateOfBirth;
+//  @JsonDeserialize(using = DateDeSerializer.class)
+//  @Past(message = "Date Should be past")
+//  @NotEmpty(message = "Date of Birth is mandatory")
+    private LocalDate dateOfBirth;
 
     @NotNull(message = "Gender is mandatory 'MALE' or 'FEMALE'")
     private Gender gender;
@@ -56,5 +56,4 @@ public class UserDto {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotEmpty(message = "Password is mandatory")
     private String password;
-
 }

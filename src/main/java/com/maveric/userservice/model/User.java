@@ -28,7 +28,7 @@ public class User {
     private String phoneNumber;
     private String email;
     private String address;
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
     private Gender gender;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;

@@ -18,38 +18,17 @@ import org.slf4j.Logger;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
-//    @ExceptionHandler(UserNotFoundException.class)
-//    @ResponseStatus(HttpStatus.NOT_FOUND)
-//    public final ErrorDto handleUserNotFoundException(UserNotFoundException exception) {
-//        ErrorDto errorDto = new ErrorDto();
-//        errorDto.setCode(USER_NOT_FOUND_CODE);
-//        errorDto.setMessage(exception.getMessage());
-//        return errorDto;
-//    }
-//    @ExceptionHandler(InvalidException.class)
-//    @ResponseStatus(HttpStatus.NOT_FOUND)
-//    public final ErrorDto invalidException(InvalidException exception) {
-//        ErrorDto errorDto = new ErrorDto();
-//        errorDto.setCode(BAD_REQUEST_CODE);
-//        errorDto.setMessage(exception.getMessage());
-//        return errorDto;
-//    }
-//String exceptionString="";
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    public ErrorDto handleValidationExceptions(
-//            MethodArgumentNotValidException ex) {
-//        ErrorDto errorDto = new ErrorDto();
-//        errorDto.setCode(BAD_REQUEST_CODE);
-//        errorDto.setMessage(ex.getBindingResult().getAllErrors().get(0).getDefaultMessage());
-//        exceptionString = ex.getMessage();
-//        log.error("{}->{}->{}",BAD_REQUEST_CODE,ex.getBindingResult().getAllErrors().get(0).getDefaultMessage(),exceptionString);
-//        return errorDto;
-//    }
-
-
     String exceptionString="";
+
+    @ExceptionHandler(InvalidException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public final ErrorDto invalidException(InvalidException exception) {
+        ErrorDto errorDto = new ErrorDto();
+        errorDto.setCode(USER_NOT_FOUND_CODE);
+        errorDto.setMessage(exception.getMessage());
+        exceptionString = exception.getMessage();
+        return errorDto;
+    }
 
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -65,17 +44,8 @@ public class GlobalExceptionHandler {
     public ErrorDto handleValidationExceptions(
             MethodArgumentNotValidException ex) {
         ErrorDto errorDto = new ErrorDto();
-//      //  Map<String, String> errors = new HashMap<>();
-//        ex.getBindingResult().getAllErrors().forEach(error -> {
-//             String fieldName = ((FieldError) error).getField();
-//            String errorMessage = error.getDefaultMessage();
-//           // errors.put(fieldName, errorMessage);
-//            errors.put(fieldName, errorMessage);
-//        });
         errorDto.setCode(BAD_REQUEST_CODE);
-       // errorDto.setMessage(BAD_REQUEST_MESSAGE);
         errorDto.setMessage(ex.getBindingResult().getAllErrors().get(0).getDefaultMessage());
-       // errorDto.setErrors(errors);
         return errorDto;
     }
 
@@ -85,8 +55,6 @@ public class GlobalExceptionHandler {
         ErrorDto errorDto = new ErrorDto();
         errorDto.setCode(BAD_REQUEST_CODE);
         errorDto.setMessage(exception.getMessage());
-//        exceptionString = exception.getMessage();
-//        log.error("{}->{}",BAD_REQUEST_CODE,exceptionString);
         return errorDto;
     }
 
@@ -113,4 +81,6 @@ public class GlobalExceptionHandler {
             errorDto.setMessage(HttpMessageNotReadableException_MESSAGE);
         return errorDto;
     }
+
+
 }
